@@ -1,5 +1,5 @@
 export interface ICliente {
-  id: number | undefined
+  id: number 
   nome: string
   descricao: string
   telefone: string

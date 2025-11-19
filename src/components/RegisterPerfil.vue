@@ -4,7 +4,7 @@
   import { type ICliente } from 'src/interfaces/ICliente'
   import CFormDialog from './CFormDialog.vue'
   import servicoPerfil from 'src/services/servicoPerfil'
-  import { format, isValid, parse, parseISO } from 'date-fns'
+  import { format, isValid, parse } from 'date-fns'
 
   const $q = useQuasar()
   const dialog = ref<QDialog>()
@@ -17,7 +17,6 @@
   async function criarCliente() {
     await servicoPerfil
       .adicionarCliente(cliente.data)
-
       .then(() => {
         emit('cliente-salvo', cliente.data)
         dialog.value?.hide()
@@ -34,7 +33,7 @@
       })
   }
 
-  async function editarCiente() {
+   async function editarCliente() {
     await servicoPerfil
       .editarCliente(cliente.data)
       .then(() => {
@@ -55,7 +54,7 @@
   }
 
   const emit = defineEmits(['cliente-salvo'])
-  async function submitForm() {
+   async function submitForm() {
     console.log('ID do cliente para salvar:', cliente.data.id)
 
     if (cliente.data.nascimento) {
@@ -70,9 +69,9 @@
     }
 
     if (cliente.data.id) {
-      editarCiente()
+     await editarCliente()
     } else {
-      criarCliente()
+      await criarCliente()
     }
   }
 
@@ -101,16 +100,18 @@
         .then((res) => {
           cliente.data = {
             ...res,
-            nascimento: res.nascimento ? format(parseISO(res.nascimento), 'dd/MM/yyyy') : '',
           } as ICliente
+          dialog.value?.show()
         })
+        
         .catch(() => {
           $q.notify({
             type: 'negative',
             message: 'Erro ao carregar cliente',
           })
-        })
       dialog.value?.show()
+
+        })
     } else {
       dialog.value?.show()
       cliente.data = {} as ICliente

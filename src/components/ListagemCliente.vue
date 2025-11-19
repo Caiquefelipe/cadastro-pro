@@ -19,14 +19,14 @@
   }
 
   function onEdit(row: ICliente) {
-    dialog.value?.show(row)
+    dialog.value?.show(row.id)
   }
 
   function deletarCliente(id: number) {
     servicoPerfil
       .deletarCliente(id)
-      .then(() => {
-        carregarClientes()
+      .then(async () => {
+        await carregarClientes()
         $q.notify({
           type: 'positive',
           message: 'Cliente deletado com sucesso!',
@@ -71,9 +71,9 @@
           row-key="id"
           :columns="columns">
           <template #actions="actionProps">
-            <EditarCliente @click="onEdit(actionProps.props.row.id)" />
+            <EditarCliente @click="onEdit(actionProps.props.row)" />
             <ExcluirCliente @click="deletarCliente(actionProps.props.row.id)" />
-            <VisualizarCliente @click="visualizar(actionProps?.props?.row?.id)" />
+            <VisualizarCliente @click="visualizar(actionProps?.props?.row.id)" />
           </template>
         </CDefaulttable>
       </q-page>
