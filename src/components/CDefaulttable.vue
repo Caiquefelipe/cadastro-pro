@@ -4,7 +4,6 @@
   import { computed, useSlots } from 'vue'
 
   import type ColumnsTable from 'src/interfaces/ColumnsTable'
-  import { sortByFormatter } from 'src/helper/sortyBtFormatter'
 
   const $q = useQuasar()
   const slots = useSlots()
@@ -46,13 +45,8 @@
     }
   )
 
-  const emit = defineEmits(['onSortBy'])
 
-  const sortBy = (rows: readonly any[], sortBy: string, descending: boolean) => {
-    const sortByFormatted = sortByFormatter(sortBy, descending)
-    emit('onSortBy', sortByFormatted)
-    return props.rows
-  }
+
 
   const bodyCellSlotNames = computed(() => {
     return Object.keys(slots).filter((x) => x.substring(0, 10) === 'body-cell-')
@@ -68,9 +62,8 @@
     :title-class="props.titleClass"
     :no-data-label="props.noDataLabel"
     no-results-label="Nenhum resultado encontrado!"
-    :columns="props.columns"
     :rows="props.rows"
-    :sort-method="sortBy"
+    :columns="props.columns"
     :row-key="props.rowKey"
     binary-state-sort
     :class="props.class"

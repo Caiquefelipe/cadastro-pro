@@ -1,24 +1,24 @@
 <script setup lang="ts">
   import { reactive, ref, computed } from 'vue'
   import { type QDialog, useQuasar } from 'quasar'
-  import { type ICliente } from 'src/interfaces/ICliente'
   import CFormDialog from './CFormDialog.vue'
-  import servicoPerfil from 'src/services/servicoPerfil'
+  import customerService from 'src/services/customerService'
   import { format, isValid, parse } from 'date-fns'
+  import type { ICustomer } from 'src/interfaces/ICustomer'
 
   const $q = useQuasar()
   const dialog = ref<QDialog>()
   const isViewMode = ref<boolean>(false)
   const id = ref<number>()
-  const cliente = reactive<{ data: ICliente }>({
-    data: {} as ICliente,
+  const client = reactive<{ data: ICustomer }>({
+    data: {} as ICustomer,
   })
-  console.log(cliente)
-  async function criarCliente() {
-    await servicoPerfil
-      .adicionarCliente(cliente.data)
+  console.log(client)
+  async function createClient() {
+    await customerService
+      .addCustomer(client.data)
       .then(() => {
-        emit('cliente-salvo', cliente.data)
+        emit('client-saved', client.data)
         dialog.value?.hide()
         $q.notify({
           type: 'positive',
@@ -33,11 +33,11 @@
       })
   }
 
-   async function editarCliente() {
-    await servicoPerfil
-      .editarCliente(cliente.data)
+   async function editClient() {
+    await customerService
+      .editCustomer(client.data)
       .then(() => {
-        emit('cliente-salvo', cliente.data)
+        emit('client-saved', client.data)
         dialog.value?.hide()
 
         $q.notify({
@@ -53,25 +53,25 @@
       })
   }
 
-  const emit = defineEmits(['cliente-salvo'])
+  const emit = defineEmits(['client-saved'])
    async function submitForm() {
-    console.log('ID do cliente para salvar:', cliente.data.id)
+    console.log('ID do cliente para salvar:', client.data.id)
 
-    if (cliente.data.nascimento) {
+    if (client.data.birthDate) {
       try {
-        const parsed = parse(cliente.data.nascimento, 'dd/MM/yyyy', new Date())
+        const parsed = parse(client.data.birthDate, 'dd/MM/yyyy', new Date())
         if (isValid(parsed)) {
-          cliente.data.nascimento = format(parsed, 'dd/MM/yyyy')
+          client.data.birthDate = format(parsed, 'dd/MM/yyyy')
         }
       } catch (error) {
         console.warn('Data de nascimento inválida ou não pôde ser formatada:', error)
       }
     }
 
-    if (cliente.data.id) {
-     await editarCliente()
+    if (client.data.id) {
+     await editClient()
     } else {
-      await criarCliente()
+      await createClient()
     }
   }
 
@@ -86,21 +86,21 @@
     }
   })
 
-  function onCancelar() {
+  function onCancel() {
     dialog.value?.hide()
   }
 
-  async function show(itemId?: number, perfilViewMode?: boolean) {
-    isViewMode.value = perfilViewMode ?? false
+  async function show(itemId?: number, profileViewMode?: boolean) {
+    isViewMode.value = profileViewMode ?? false
     id.value = itemId
 
     if (id.value) {
-      await servicoPerfil
-        .pegarClientePorId(id.value)
+      await customerService
+        .getCustomerById(id.value)
         .then((res) => {
-          cliente.data = {
+          client.data = {
             ...res,
-          } as ICliente
+          } as ICustomer
           dialog.value?.show()
         })
         
@@ -114,7 +114,7 @@
         })
     } else {
       dialog.value?.show()
-      cliente.data = {} as ICliente
+      client.data = {} as ICustomer
     }
   }
 
@@ -137,7 +137,7 @@
           <div class="row q-col-gutter-md">
             <div class="col-xs-12 col-sm-6">
               <q-input
-                v-model="cliente.data.nome"
+                v-model="client.data.name"
                 label="Nome"
                 :dense="false"
                 autofocus
@@ -148,7 +148,7 @@
             </div>
             <div class="col-xs-12 col-sm-6">
               <q-input
-                v-model="cliente.data.telefone"
+                v-model="client.data.phone"
                 label="Telefone"
                 :dense="false"
                 :disable="isViewMode"
@@ -160,7 +160,7 @@
             </div>
             <div class="col-xs-12 col-sm-6">
               <q-input
-                v-model="cliente.data.nascimento"
+                v-model="client.data.birthDate"
                 label="Nascimento"
                 :mask="'##/##/####'"
                 :disable="isViewMode"
@@ -182,7 +182,7 @@
                       transition-show="scale"
                       transition-hide="scale">
                       <q-date
-                        v-model="cliente.data.nascimento"
+                        v-model="client.data.birthDate"
                         mask="DD/MM/YYYY">
                         <div class="row items-center justify-end">
                           <q-btn
@@ -200,7 +200,7 @@
             </div>
             <div class="col-xs-12 col-sm-6">
               <q-input
-                v-model="cliente.data.cep"
+                v-model="client.data.postalCode"
                 label="CEP"
                 :dense="false"
                 outlined
@@ -209,7 +209,7 @@
             </div>
             <div class="col-xs-12 col-sm-6">
               <q-input
-                v-model="cliente.data.endereco"
+                v-model="client.data.address"
                 :disable="isViewMode"
                 label="Endereço"
                 :dense="false"
@@ -218,7 +218,7 @@
             </div>
             <div class="col-xs-12 col-sm-6">
               <q-input
-                v-model="cliente.data.numeroEndereco"
+                v-model="client.data.addressNumber"
                 label="Número"
                 :disable="isViewMode"
                 :dense="false"
@@ -227,7 +227,7 @@
             </div>
             <div class="col-xs-12 col-sm-6">
               <q-input
-                v-model="cliente.data.bairro"
+                v-model="client.data.neighborhood"
                 label="Bairro"
                 :dense="false"
                 :disable="isViewMode"
@@ -236,7 +236,7 @@
             </div>
             <div class="col-xs-12 col-sm-6">
               <q-input
-                v-model="cliente.data.cidade"
+                v-model="client.data.city"
                 label="Cidade"
                 :disable="isViewMode"
                 :dense="false"
@@ -245,7 +245,7 @@
             </div>
             <div class="col-xs-12 col-sm-12">
               <q-input
-                v-model="cliente.data.estado"
+                v-model="client.data.state"
                 label="Estado"
                 :dense="false"
                 :disable="isViewMode"
@@ -257,14 +257,14 @@
                 :disable="isViewMode"
                 type="textarea"
                 label="Descrição"
-                v-model="cliente.data.descricao"
+                v-model="client.data.description"
                 outlined />
             </div>
           </div>
 
           <div class="row">
             <div class="col">
-              <pre> {{ JSON.stringify(cliente, null, 2) }} </pre>
+              <pre> {{ JSON.stringify(client, null, 2) }} </pre>
             </div>
           </div>
         </q-card-section>
@@ -279,7 +279,7 @@
             :disable="isViewMode"
             class="gt-xs"
             label="Cancelar"
-            @click="onCancelar" />
+            @click="onCancel" />
           <q-btn
             unelevated
             color="primary"

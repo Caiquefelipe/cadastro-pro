@@ -3,34 +3,34 @@ import type ColumnsTable from 'src/interfaces/ColumnsTable'
 
 export const columns = [
   {
-    name: 'nome',
+    name: 'name',
     label: 'Nome',
-    field: (row) => row.nome,
+    field: (row) => row.name,
     align: 'left',
     headerStyle: `${storeTable.headerStyleFirstElement}`,
     sortable: true,
   },
   {
-    name: 'descricao',
+    name: 'description',
     label: 'Descrição',
-    field: (row) => row.descricao,
+    field: (row) => row.description,
     align: `${storeTable.alignContent}`,
     headerStyle: `${storeTable.headerStyleElements}`,
 
     sortable: true,
   },
   {
-    name: 'Telefone',
+    name: 'phone',
     label: 'Telefone',
     headerStyle: `${storeTable.headerStyleElements}`,
-    field: (row) => row.telefone,
+    field: (row) => row.phone,
     align: 'left',
     sortable: true,
   },
   {
-    name: 'Data de nascimento',
+    name: 'birthDate',
     label: 'Data de nascimento',
-    field: (row) => row.nascimento,
+    field: (row) => row.birthDate,
     headerStyle: `${storeTable.headerStyleElements}`,
     align: 'left',
     sortable: true,
@@ -38,8 +38,7 @@ export const columns = [
   {
     name: 'actions',
     headerStyle: `${storeTable.headerStyleElements}`,
-    algin: 'right',
+    align: 'right',
     label: '',
-    field: 'actions',
   },
 ] as ColumnsTable[]

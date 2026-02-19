@@ -3,8 +3,8 @@ import type { RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    name: 'ListagemCliente',
-    component: () => import('components/ListagemCliente.vue'),
+    name: 'ClientListing',
+    component: () => import('components/ClientListing.vue'),
   },
 ]
 

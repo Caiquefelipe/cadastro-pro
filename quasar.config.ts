@@ -1,10 +1,9 @@
 import { defineConfig } from '#q-app/wrappers'
-import path from 'path' // Adicionado para o proxy funcionar
 
 export default defineConfig((/* ctx */) => {
   return {
     boot: [],
-    extras: ['roboto-font', 'material-icons'],
+    extras: ['roboto-font', 'material-icons', 'fontawesome-v6'],
 
     build: {
       target: {
@@ -36,7 +35,7 @@ export default defineConfig((/* ctx */) => {
       open: true,
       proxy: {
         '/api': {
-          target: 'http://localhost:5001',
+          target: 'http://localhost:7100',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },

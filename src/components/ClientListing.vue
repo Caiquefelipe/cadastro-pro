@@ -1,14 +1,14 @@
 <script setup lang="ts">
   import { ref, onMounted } from 'vue'
+  import { type ICustomer } from 'src/interfaces/ICustomer'
   import { columns } from './ClientColumnsTable'
-  import type RegisterProfile from './RegisterProfile.vue'
+  import RegisterProfile from './RegisterProfile.vue'
   import CDefaultTable from './CDefaultTable.vue'
   import DeleteClient from './DeleteClient.vue'
   import ViewClient from './ViewClient.vue'
   import customerService from 'src/services/customerService'
   import { useQuasar } from 'quasar'
   import EditClient from './EditClient.vue'
-import  { type ICustomer } from '../interfaces/ICustomer'
 
   const dialog = ref<typeof RegisterProfile>()
   const rows = ref<ICustomer[]>([])

@@ -1,8 +1,8 @@
 export default interface ColumnsTable {
   name: string
   label: string
-  field: string | ((row: any) => any)
-  algin?: 'left' | 'right' | 'center' | undefined
+  field?: string | ((row: any) => any)
+  align?: 'left' | 'right' | 'center'
   required?: boolean
   sortable?: boolean
   sort?: (a: any, b: any, rowA: any, rowB: any) => number
