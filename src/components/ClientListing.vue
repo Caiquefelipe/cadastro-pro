@@ -3,7 +3,7 @@
   import { type ICustomer } from 'src/interfaces/ICustomer'
   import { columns } from './ClientColumnsTable'
   import RegisterProfile from './RegisterProfile.vue'
-  import CDefaultTable from './CDefaultTable.vue'
+  import CDefaultTable from './teste.vue'
   import DeleteClient from './DeleteClient.vue'
   import ViewClient from './ViewClient.vue'
   import customerService from 'src/services/customerService'

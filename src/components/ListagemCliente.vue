@@ -2,7 +2,7 @@
   import { ref, onMounted } from 'vue'
   import { columns } from './ClientColumnsTable'
   import type RegisterProfile from './RegisterProfile.vue'
-  import CDefaultTable from './CDefaultTable.vue'
+  import CDefaultTable from './teste.vue'
   import DeleteClient from './DeleteClient.vue'
   import ViewClient from './ViewClient.vue'
   import customerService from 'src/services/customerService'
