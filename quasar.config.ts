@@ -52,11 +52,7 @@ export default defineConfig((/* ctx */) => {
 
     animations: [],
 
-    ssr: {
-      prodPort: 3000,
-      middlewares: ['render'],
-      pwa: false,
-    },
+    ssr: false,
 
     pwa: {
       workboxMode: 'GenerateSW',
