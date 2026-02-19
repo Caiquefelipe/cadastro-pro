@@ -13,7 +13,6 @@
   const client = reactive<{ data: ICustomer }>({
     data: {} as ICustomer,
   })
-  console.log(client)
   async function createClient() {
     await customerService
       .addCustomer(client.data)
