@@ -35,7 +35,7 @@
 
    async function editClient() {
     await customerService
-      .editCustomer(client.data)
+      .editCustomer(client.data.id,client.data)
       .then(() => {
         emit('client-saved', client.data)
         dialog.value?.hide()

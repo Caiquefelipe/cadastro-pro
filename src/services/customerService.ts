@@ -17,8 +17,8 @@ class CustomerService {
     return response.data
   }
 
-  async editCustomer(data: ICustomer) {
-    const response = await axios.put(`${BASE_URL}/customer`, data)
+  async editCustomer(id: number, data: ICustomer) {
+    const response = await axios.put(`${BASE_URL}/customer/${id}`, data)
     return response.data
   }
 
