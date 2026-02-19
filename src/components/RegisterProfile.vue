@@ -54,7 +54,6 @@
 
   const emit = defineEmits(['client-saved'])
    async function submitForm() {
-    console.log('ID do cliente para salvar:', client.data.id)
 
     if (client.data.birthDate) {
       try {
