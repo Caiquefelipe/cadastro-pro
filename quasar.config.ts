@@ -1,6 +1,6 @@
 import { defineConfig } from '#q-app/wrappers'
 
-export default defineConfig((/* ctx */) => {
+export default defineConfig(() => {
   return {
     boot: [],
     extras: ['roboto-font', 'material-icons', 'fontawesome-v6'],
@@ -52,7 +52,7 @@ export default defineConfig((/* ctx */) => {
 
     animations: [],
 
-    ssr: false,
+    ssr: {},
 
     pwa: {
       workboxMode: 'GenerateSW',
