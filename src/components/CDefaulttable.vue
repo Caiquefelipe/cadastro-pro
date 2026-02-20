@@ -1,10 +1,7 @@
 <script setup lang="ts">
   import { useQuasar } from 'quasar'
-
   import { computed, useSlots } from 'vue'
-
   import type ColumnsTable from 'src/interfaces/ColumnsTable'
-
   const $q = useQuasar()
   const slots = useSlots()
 
