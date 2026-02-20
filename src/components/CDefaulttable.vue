@@ -44,7 +44,6 @@
       selection: false,
     }
   )
-
   const bodyCellSlotNames = computed(() => {
     return Object.keys(slots).filter((x) => x.substring(0, 10) === 'body-cell-')
   })
