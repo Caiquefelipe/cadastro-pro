@@ -1,7 +1,9 @@
-export default interface ColumnsTable {
+import type { QTableColumn } from 'quasar'
+
+export default interface ColumnsTable extends QTableColumn {
   name: string
   label: string
-  field?: string | ((row: any) => any)
+  field: string | ((row: any) => any)
   align?: 'left' | 'right' | 'center'
   required?: boolean
   sortable?: boolean
