@@ -2,7 +2,7 @@ import axios from 'axios'
 import type { ICustomer } from 'src/interfaces/ICustomer'
 
 // Base URL for API requests — centralize the server address here
-const BASE_URL = 'https://localhost:7100/api'
+const BASE_URL = 'https://cadastro-pro-backend-net-3.onrender.com/api'
 
 class CustomerService {
   async getCustomers(): Promise<ICustomer[]> {
